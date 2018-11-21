@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"/>
+
+{% block head %}
+    <title>Advanced search</title>
+{% endblock %}
+{% block content %}
+    <div class='col-12 col-md-6 mx-auto py-5'>
+{#        {% include 'search/snippets/search-form.html' %}#}
+        </div>
+          <div class='col-12'>
+            <hr>
+         </div>
+
+    {% if results %}
+
+{#    {% for obj in results %}#}
+         <div class='row'>
+            <div class='row'>
+            {% for obj in results %}
+                <div class='col'>
+
+                    {% include 'auctions/snippets/card.html' with instance=obj %}
+                    {% if forloop.counter|divisibleby:3 %}
+                </div>
+                </div>
+                        <div class='row'>
+                            <div class='col-12'>
+                                <hr/>
+                            </div>
+                        </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-12'>
+                                <hr/>
+                            </div>
+                            {% else %}
+                     </div>
+                    {% endif %}
+                {% endfor %}
+
+    {% else %}
+
+        <h2 align="center">No risults found</h2>
+
+    {% endif %}
+
+{% endblock %}

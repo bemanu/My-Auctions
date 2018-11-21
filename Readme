@@ -1,0 +1,44 @@
+Follow this instructions to set up the project.
+
+ If you are not having the following packages ; mysql-server and the  mysql python wrapper exsecute the following command in the terminal:
+
+> sudo apt-get install mysql-server
+> sudo apt-get install python-mysqldb
+
+ The following command will install the django framework if is not already install:
+ 
+> sudo pip install Django==1.8
+> sudo pip install pillow
+> sudo pip install pillow
+
+To install pip:
+> sudo apt-get install python-pip
+
+
+ From the software folder (from the terminal: "cd AuctionOnline"), enter the following command to start the django server:
+
+> python manage.py runserver
+
+open on your browser http://127.0.0.1:8000/
+
+
+current admin user is: bonsu
+and password is: exmld3inf
+
+
+Also the admin username and password can be use to access the site with all the possible interaction that a use can have.
+
+
+
+
+==================================================TESTING========================================================================
+-------
+
+Inside the software app directories are the "tests.py" files, which contain several tests that verify the correct functioning of the internal code and the views.
+
+To run all the tests present, enter the command from the 'AuctionOnline /' directory:
+> python manage.py test
+
+Otherwise, if you want to run only the tests of a single application:
+> python manage.py <appname>
+es. > python manage.py auctions

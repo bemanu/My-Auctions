@@ -1,0 +1,32 @@
+{% extends 'accounts/profile_page.html' %}
+
+{% block head %}
+    <title>Partecipated auction</title>
+{% endblock %}
+{% block profile %}
+
+    {% if object_list%}
+        <div class="row">
+            <div class="col">
+                        {% for obj in object_list %}
+                               <p align="left"><b><a href="{% url 'auctions:detail' obj.id %}">{{ obj.title }}</a></b></p>
+                                <div ><b>Cattegory  </b> {{   obj.category }}</div>
+                                {% if not obj.migliorOfferente == '' %}
+                                    <div ><b>High Bidder:</b> {{ obj.high_bidder }} , con
+                                        <b>{{    obj.offerta }}</b> euro.</div>
+                                {% endif %}
+                                {% if obj.active == False %}
+                                    <h4 >Auction Ended</h4>
+                                {% endif %}
+                            <a href="{% url 'auctions:delete' obj.id %}" class="btn btn-primary">delete</a>
+                            <hr/>
+                        {% endfor %}
+
+         </div>
+        </div>
+     {% else %}
+        <p> Never partecipated in an auction </p>
+    {% endif %}
+
+
+{% endblock %}

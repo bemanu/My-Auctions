@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block head %}
+{% load crispy_forms_tags %}
+
+<title>Register</title>
+{% endblock %}
+
+{% block content %}
+    <h2>Sign up</h2>
+  <form method="post"> {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}
+        {{ field }}<br/>
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </form>
+    {% endfor %}<br/>
+    <input  class="btn btn-default"  type="submit" value="Register" ><br/>
+       Already a member?
+        <a class="sign-link" href="{% url 'accounts:login' %}"> Login</a>
+
+{% endblock %}

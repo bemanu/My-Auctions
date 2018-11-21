@@ -1,0 +1,23 @@
+{% extends 'accounts/profile_page.html' %}
+
+{% block profile %}
+
+    {% if notifiche.count is None %}
+            {% for mess in messages %}
+                <li>
+                <div class="row">
+                    <p><b>CONGRATULATION!</b> YOU WON THE AUCTION
+                        Item : <a href="{% url 'auctions:detail' mess.auction.id %}">{{ mess.auction.title }}</a>
+                        for {{ mess.auction.offer }}euro!</p>
+                    </div>
+                </li>
+            {% endfor %}
+                <form method="POST">{% csrf_token %}
+                    <input type="submit" value="Delete message" class="btn btn-default">
+                </form>
+    {% else %}
+        <p> No message avail</p>
+    {% endif %}
+
+
+{% endblock %}

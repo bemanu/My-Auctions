@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+{% load tz %}
+{% block head %}
+
+     <script type='text/javascript' src="{% static '/javascript/tempo_restante.js' %}"></script>
+
+    <title>Detail</title>
+{% endblock  %}
+
+
+{% block content %}
+
+
+    <script>
+        console.log("shiffo");
+        window.onload = function() {
+        var rest = {{ remain_time }};
+        var display = document.querySelector('#exp_time');
+        console.log(display);
+        startTimer(rest, display);
+        };
+
+    </script>
+
+    <h3 align="center">Auction N°.  # {{ instance.id }}</h3>
+    <div class="row">
+        <div class="col">
+                     {%  if instance.image %}
+                        <a href="{% url 'auctions:detail' instance.id %}">
+                        <img class="card-img-top" src="{{ instance.image.url }}" alt="No Image"> </a>
+                    {% endif %}
+
+                    <br/>
+                    <p><b> Title: </b> {{ instance.title }}</p>
+                    <p><b> Category: </b> {{ instance.category }}</p>
+                    <p><b> Auction Type : </b> {{ instance.auction_type }}</p>
+                    <p><b> Description: </b> {{ instance.description | linebreaks}}</p>
+                    <p><b> Starting Price : </b> {{ instance.min_price}}</p>
+                    <p><b> Owner: </b> {{ instance.vendor }}</p>
+     {% if request.user.is_authenticated %}
+{#         {% if instance.active and instance.deadline.time != 0 %}#}
+             {% if request.user is not instance.user  %}
+                {% if not request.user == instance.vendor  %}
+                    <div class="col">
+                        <form method="post" action="">{% csrf_token %}
+                        <p><label><b>Bid </b> (minimum bid :{{ bid |floatformat:0 }} euro)</label>
+                        {% if messages %}
+                            <p align="left" class="messages">
+                            {% for message in messages %}
+                                <b>{{ message }}</b>
+                            {% endfor %}
+                            </p>
+                        {% endif %}
+                            {% if instance.offer == None %}
+                                <label>
+                                    <input type="number" value="{{ instance.min_price|floatformat:0 }}" name="Offer">
+                                </label>
+                            {% else %}
+                                <label>
+                                    <input type="number" value="{{ minimum_offer|floatformat:0 }}" name="Offer">
+                                </label>
+
+                                 <p class="blink" ><b>Last bidder : </b> {{ instance.high_bidder|floatformat:0 }} {{ instance.offer }}</p>
+
+                                {% endif %}
+                            <p>  <input class="btn btn-default" type="submit" value="Bid"></p>
+                                </form>
+                        Expire within:  <span id="exp_time"></span>
+
+
+            {% endif %}
+                 {% endif %}
+     </div>
+
+        </div>
+
+
+
+     {% endif %} </div>
+
+{% endblock content %}

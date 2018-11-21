@@ -1,0 +1,69 @@
+{% url 'home'                           as home_url %}
+{% url 'accounts:register'              as register_url %}
+{% url 'accounts:login'                 as login_url %}
+{% url 'accounts:logout'                as logout_url %}
+{% url 'auctions:wall'                  as wall_url%}
+{% url 'auctions:create_auction'        as create_auction_url %}
+{% url 'accounts:profile_page'          as my_profile_url %}
+{% url "search:advanced_search"         as advanced_search_url %}
+{% url "auctions:stat"                  as statistic_chart_url %}
+{% url "accounts:edit_profile"          as edit_profile_url %}
+
+
+{% load staticfiles %}
+{% load static %}
+ <script  type='text/javascript' src="{%  static '/javascript/orario.js'%}"></script>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark   ">
+
+ <time class="navbar my-4" id="orario"> </time>
+
+        <a class="navbar-brand" href='{{ home_url }}'>
+          {% if brand_name %}{{ brand_name }}{% else %}LD-AUC-TION{% endif %}
+        </a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+            {% if request.user.is_authenticated %}
+                <ul class="nav navbar-nav">
+                    <a class="nav-link " href="{{ wall_url }}" >Shop</a>
+                 </ul>
+            {% else %}
+                <a class="nav-link " href="{{ login_url }}" >Shop</a>
+
+            {% endif %}
+                        <div class='col-6 mx-auto py-0'>
+                               {% include 'search/snippets/search-form.html' %}
+
+                            </div>
+            <ul class="navbar-nav">
+                 <li class="nav-item navbar-nav px-4">
+                    <a class="nav-link " href="{{ advanced_search_url }}" >Advanced search </a>
+                 </li>
+            </ul>
+        <div class="collapse navbar-collapse " id="navbarMenu">
+        <li class="navbar-nav ">
+        {% if request.user.is_authenticated %}
+                    <a href="#"  data-toggle="dropdown" role="button" aria-haspopup="true"
+                    aria-expanded="false"> <b>Hello {{ request.user.username }} </b><span class="caret "></span>
+                    </a>
+                    <div class="dropdown-menu  dropdown-menu-right " aria-labelledby="navbarSupportedContent" id="navbarSupportedContent">
+                        <a class="dropdown-item" href="{{ my_profile_url }}">My Profile</a>
+                        <a class="dropdown-item" href="{{ create_auction_url }}">Create Auction</a>
+                        <a class="dropdown-item" href="{{ statistic_chart_url }}">Stat</a>
+
+                        <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ logout_url }}">Logout</a>
+                    </div>
+
+        {% else %}
+{#            <li class="nav-item ">#}
+                <a class="nav-link " href="{{ login_url }}" role="button" aria-haspopup="true"
+                   aria-expanded="false">Register</a>
+{#            </li>#}
+        {% endif %}
+
+
+        </div>
+    </nav>
+

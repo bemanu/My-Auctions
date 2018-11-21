@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <title >New Auction</title>
+{% endblock %}
+{% block content %}
+    <h3>Fill in the forms </h3>
+    <form method="post" enctype="multipart/form-data"> {% csrf_token %}
+                          {{ form.as_p}}
+{#
+
+
+            {% if messages %}
+                    <p align=" right" class="messages">
+                    {% for message in messages %}
+                        <b>{{ message }}</b>
+                    {% endfor %}
+                    </p><br/>
+            {% endif %}
+
+        <label><b>Expiry date and time  </b>
+
+                    <p>(aaaa-mm-gg) <input type="date" id="dataScadenza" value="" name="dataScadenza " required/></p>
+                    <p>(hh:mm) <input type="time" id="oraScadenza" name="oraScadenza"   required/>
+                        {% comment %}
+                        <input id="clickMe" type="button" value="clickme" onclick="addTime()" />
+                        {% endcomment %}
+                    </p></label>
+
+        <p><input  class="btn btn-default"  type="submit" value="Submit" ></p>
+    </form>
+
+{% endblock %}
+
+
+
+

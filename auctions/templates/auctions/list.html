@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+        <div class="row">
+            <div class="col">
+            {% for obj in object_list %}
+                 <div class="col">
+
+                 {% include 'auctions/snippets/card.html' with instance=obj%}
+                 {% if forloop.counter|divisibleby:3%}
+                  </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <hr/>
+                            </div>
+                    {% elif forloop.counter|divisibleby:2 %}
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <hr/>
+                            </div>
+                    {% else %}
+                 </div>
+                 {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+
+
+{% endblock content %}

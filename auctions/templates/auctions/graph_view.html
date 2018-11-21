@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+{#    {% include 'base/js.html' %}#}
+{#    {% include 'base/css.html' %}#}
+    <title>Statistic</title>
+
+{%  endblock %}
+{% block jquery %}
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+    <script>
+    var endpoint = '/auctions/chart_data/';
+    var defaultData = []
+    var labels = [];
+    $.ajax({
+        method: "GET",
+        url: '{% url "auctions:stats" %}',
+        success: function(data){
+            d = {'labels': ['comics', 'discs'], 'default': [23, 76,0]};
+            console.log(data);
+            labels = data.labels;
+            defaultData = data.default;
+            setChart()
+        },
+        error: function(error_data){
+            console.log("error")
+            console.log(error_data)
+        }
+    })
+
+
+         function  setChart () {
+        console.log("hello am in the script");
+        {#var defaultData = [];#}
+        {#var labels = [];#}
+        var randomColorGenerator = function () {
+            return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+        };
+        var options = {
+            responsive: true,
+            maintainAspectRatio: true,
+            legend: {
+                position: 'left'
+            },
+            title: {
+                display: true
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            }
+        };
+
+                {#defaultData = defaultData;#}
+          {#//data.default;#}
+          {#      labels =labels;#}
+                var ctx = document.getElementById("gender-chart");
+                console.log("in the script1");
+                var lineChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels:labels,
+
+                    datasets: [{
+                        data:defaultData,
+                        backgroundColor:[{% for lab in labels %}randomColorGenerator(),{% endfor %}]
+                    }]
+                },
+                options: options
+            });
+
+        }
+    </script>
+{% endblock %}
+{% block content %}
+
+    <h1 align="center"> Graphs </h1>
+    <hr>
+    <div class="row">
+        <div class="col">
+{#            <p> similarities</p>#}
+                <canvas id="gender-chart" style="width: 100px !important;"> </canvas>
+{#            <p>after the graph</p>#}
+        </div>
+    </div>
+{#    <p>before super block call</p>#}
+{#        {{ block.super }}#}
+{% endblock %}

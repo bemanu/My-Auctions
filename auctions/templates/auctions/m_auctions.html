@@ -1,0 +1,41 @@
+{% extends 'accounts/profile_page.html' %}
+{% block head %}
+<title>My Auction</title>
+{#      <link rel="stylesheet" href='{% static "css/main.css" %}'>#}
+{% endblock %}
+{% block sub_head %}
+<title>My auctions</title>
+{% endblock %}
+{% block profile %}
+
+    {% if object_list %}
+     <div class="row">
+     <div class="col">
+                    {% for obj in object_list %}
+
+                           <p align="left"><b><a href="{% url 'auctions:detail' obj.id %}">{{ obj.title }}</a></b></p>
+                            <div ><b>Cat.: </b> {{ obj.category }}</div>
+                            {% if not obj.high_bidder == '' %}
+                                <div ><b>High Bidder:</b> {{ obj.high_bidder }}, con
+                                    <b>{{ obj.offerta }}</b> euro.</div>
+                            {% endif %}
+                            {% if obj.active == False %}
+                                Auction Ended
+                                <a href="{% url 'auctions:delete' obj.id %}" class="btn btn-primary">delete</a>
+                                {% else %}
+                                    Auction Active
+                            {% endif %}
+
+
+                    {% endfor %}
+
+     </div>
+    </div>
+
+    {% else %}
+        <p> NO ADDED AUCTION </p>
+    {% endif %}
+
+
+{% endblock %}
+

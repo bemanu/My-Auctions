@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<title>Search</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <div class='row  mb-3'>
+            {% if query %}
+                <div class='col-12' >
+                    Results for <b>{{ query }}</b>
+                    <hr/>
+                </div>
+            {% else %}
+                <div class='col-12 col-md-6 mx-auto py-5'>
+                    {% include 'search/snippets/search-form.html' %}
+                </div>
+                <div class='col-12'>
+                    <hr>
+                </div>
+            {% endif %}
+        </div>
+        <div class='row'>
+            {% for obj in object_list %}
+                <div class='col'>
+
+                    {% include 'auctions/snippets/card.html' with instance=obj %}
+                     {% if forloop.counter|divisibleby:3 %}
+                </div>
+                </div>
+                        <div class='row'>
+                            <div class='col-12'>
+                                <hr/>
+                            </div>
+                        </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-12'>
+                                <hr/>
+                            </div>
+                            {% else %}
+                     </div>
+                    {% endif %}
+                {% endfor %}
+{#    </div>#}
+
+{% endblock %}
+

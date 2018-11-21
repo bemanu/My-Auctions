@@ -1,0 +1,39 @@
+<div class="card" style="width: 35rem;">
+
+{%if  wall %}
+     {%  if instance.image %}
+         <a href="{% url 'auctions:detail' instance.id %}">
+             <img class="card-img-top" src="{{ instance.image.url }}" alt="No Image"> </a>
+     {% endif %}
+     <div class="card-body">
+     <a href="{% url 'auctions:detail' instance.id %}">
+         <h5  class="card-title">{{ instance.title }}</h5></a>
+     <p class="card-text">{{ instance.description | truncatewords:5 }}</p>
+
+     {% if instance.offer == None %}
+         <p style="margin: 0; padding: 0" class="card-text"> <b>Starting Bid :</b> {{ instance.min_price }}</p>
+     {% else %}
+         <p  style="margin: 0; padding: 0" class="card-text " > <b>Actual bid: </b> {{ instance.offer }}</p>
+
+
+     {% endif %}
+         <p style="margin: 0; padding: 0" class="card-text"> <b>Auction Deadline :</b> {{ instance.deadline }}</p>
+     </div>
+{% else %}
+    {%  if instance.image %}
+       <a href="{{ instance.get_absolute_url }}">
+        <img class="card-img-top" src="{{ instance.image.url }}" alt="No image"> </a>
+    {% endif %}
+        <div class="card-body">
+        <a href="{% url 'auctions:detail' instance.id %}">
+            <h5 class="card-title">{{ instance.title }}</h5></a>
+            <p style="margin: 0; padding: 0"  class="card-text">{{ instance.description | truncatewords:15}}</p>
+            <p  style="margin: 0; padding: 0"  class="card-text"> <b>Starting Bid :</b> {{ instance.min_price }}</p>
+            <p  style="margin: 0; padding: 0" class="card-text"> <b>Auction Owner :</b> {{ instance.vendor }}</p>
+             <p  style="margin: 0; padding: 0" class="card-text"> <b>Auction Deadline :</b> {{ instance.deadline }}</p>
+
+
+        </div>
+{% endif %}
+    </div>
+{#</div>#}
