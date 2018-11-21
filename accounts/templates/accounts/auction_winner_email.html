@@ -1,0 +1,8 @@
+{%  autoescape off %}
+
+Hello {{ user.username }}
+
+You are the winner of the auction number :
+http://{{ domain }}{% url 'active' uid64=uid token=token %}
+
+{% endautoescape %}
