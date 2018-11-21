@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.contrib.auth import authenticate, login, get_user_model, logout, update_session_auth_hash
