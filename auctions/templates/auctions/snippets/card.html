@@ -8,7 +8,7 @@
      <div class="card-body">
      <a href="{% url 'auctions:detail' instance.id %}">
          <h5  class="card-title">{{ instance.title }}</h5></a>
-     <p class="card-text">{{ instance.description | truncatewords:5 }}</p>
+     <p class="card-text">{{ instance.description | truncatewords:25 }}</p>
 
      {% if instance.offer == None %}
          <p style="margin: 0; padding: 0" class="card-text"> <b>Starting Bid :</b> {{ instance.min_price }}</p>
@@ -27,7 +27,7 @@
         <div class="card-body">
         <a href="{% url 'auctions:detail' instance.id %}">
             <h5 class="card-title">{{ instance.title }}</h5></a>
-            <p style="margin: 0; padding: 0"  class="card-text">{{ instance.description | truncatewords:15}}</p>
+            <p style="margin: 0; padding: 0"  class="card-text">{{ instance.description | truncatewords:25}}</p>
             <p  style="margin: 0; padding: 0"  class="card-text"> <b>Starting Bid :</b> {{ instance.min_price }}</p>
             <p  style="margin: 0; padding: 0" class="card-text"> <b>Auction Owner :</b> {{ instance.vendor }}</p>
              <p  style="margin: 0; padding: 0" class="card-text"> <b>Auction Deadline :</b> {{ instance.deadline }}</p>
