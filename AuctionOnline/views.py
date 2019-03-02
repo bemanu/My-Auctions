@@ -21,9 +21,10 @@ def home_page(request):
 
     print(len(obj_list))
 
-
+    cate_listed = Auction.objects.divid_by_cate()
     context = {
         'object_list': obj_list,
+        'object_by_cate': cate_listed,
     }
     return render(request, 'home_page.html', context)
 

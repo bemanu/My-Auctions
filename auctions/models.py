@@ -1,4 +1,3 @@
-
 import os
 import random
 from datetime import datetime, timedelta
@@ -11,7 +10,6 @@ from django.urls import reverse
 from django.utils import timezone
 
 TIME_LIMIT = 3
-
 
 CATEGORY = [
     ('comics', 'Comics'),
@@ -47,11 +45,11 @@ class AuctionQuerySet(models.query.QuerySet):
         return self.filter(active=True)
 
     def search(self, query):
-        lookups = (Q(title__icontains=query) | Q(description__icontains=query) )
+        lookups = (Q(title__icontains=query) | Q(description__icontains=query))
 
         return self.filter(lookups).distinct()
 
-    def exclude (self,to_b):
+    def exclude(self, to_b):
         return self.exclude(to_b)
 
 
@@ -71,7 +69,7 @@ class AuctionManager(models.Manager):
     def all(self):
         return self.get_queryset().active()
 
-    def minus(self,to_b):
+    def minus(self, to_b):
         return self.get_queryset().exclude(to_b)
 
     def get_by_id(self, id):
@@ -110,9 +108,19 @@ class AuctionManager(models.Manager):
         return timedelta.total_seconds(diff)
 
     def divid_by_cate(self):
-        dictionary = list()
+        cat_list = list()
+        dictionary = dict()
         for q in CATEGORY:
-            dictionary.append({q[0]: self.all().filter(category=q[0])})
+            for obj in self.all():
+                if obj.category == q:
+                    cat_list.append(obj)
+            count = len(cat_list)
+            if count > 0:
+                dictt = {q: cat_list}
+                dictionary.update(dictt)
+
+        print(dictionary)
+
         return dictionary
 
     def notify(self, auction):
@@ -130,15 +138,13 @@ class AuctionManager(models.Manager):
                 self.notify(q)
                 q.save()
 
-
-    def deadline_filter(self, ris,expire_at):
+    def deadline_filter(self, ris, expire_at):
         now = timezone.now()
         minim = now
         maxim = now + timedelta(hours=(int(expire_at)))
         risult = ris.filter(deadline__gt=minim).filter(deadline__lt=maxim)
         # print (risult)
         return risult
-
 
 
 class Auction(models.Model):
@@ -185,4 +191,3 @@ class Notify(models.Model):
 
     def __unicode__(self):
         return self.id
-
