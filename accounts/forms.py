@@ -19,7 +19,7 @@ class LoginForm(forms.Form):
 
 
 class RegisterForm(UserCreationForm):
-    email = forms.EmailField(max_length=254, help_text='Required. Insert a valid email address.')
+    email = forms.EmailField(max_length=254, help_text='Required. Insert a valid email address.',)
     bio = forms.CharField(max_length=254, help_text='optional. Something about you', required=False)
     birth_date = forms.DateField()
     address = forms.CharField(max_length=150, help_text='Optional. Your address', required=False)

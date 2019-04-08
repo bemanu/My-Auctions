@@ -12,8 +12,10 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
-    <orderEntry type="inheritedJdk" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/venv3" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 2.7 virtualenv at ~/PycharmProjects/AuctionOnline/venv (1)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="highcharts.src" level="application" />
     <orderEntry type="library" name="popper" level="application" />
@@ -22,6 +24,7 @@
     <orderEntry type="library" name="Chart" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="jquery-3.3.1.slim" level="application" />
+    <orderEntry type="module" module-name="gold_coast_rest" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

@@ -4,6 +4,12 @@
     <title xmlns="http://www.w3.org/1999/html">New Auction</title>
 {% endblock %}
 {% block content %}
+    <style>
+        input {
+            color: white;
+        }
+
+    </style>
     <h3>Fill in the forms </h3>
     <form  method="post" enctype="multipart/form-data"> {% csrf_token %}
 

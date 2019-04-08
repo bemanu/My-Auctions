@@ -6,6 +6,12 @@
 {% endblock %}
 
 {% block content %}
+    <style>
+        input {
+            color: white;
+        }
+
+</style>
     <h2>Sign up</h2>
   <form method="post"> {% csrf_token %}
     {% for field in form %}
